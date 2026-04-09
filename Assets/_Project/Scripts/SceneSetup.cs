@@ -6,16 +6,22 @@ public class SceneSetup : MonoBehaviour
 
     private void Awake()
     {
+        // ThrowPoint
         GameObject throwPoint = new GameObject("ThrowPoint");
         throwPoint.transform.position = new Vector3(0, 1, 0);
 
+        // Ladder + Collider + Game Manager
         GameObject ladder = new GameObject("Ladder");
-        ladder.transform.position = new Vector3(5, 0, 0);
+        ladder.transform.position = new Vector3(4, 0, 0);
+        ladder.AddComponent<BoxCollider>().size = new Vector3(0.3f, 3f, 0.3f);
+        LadderGameManager manager = ladder.AddComponent<LadderGameManager>();
 
+        // BolasThrower
         BolasThrower thrower = throwPoint.AddComponent<BolasThrower>();
         thrower.bolasPrefab = bolasPrefab;
         thrower.throwPoint = throwPoint.transform;
 
+        // SwipeInput Main Camera-ին
         Camera mainCam = Camera.main;
         if (mainCam != null)
         {
@@ -23,6 +29,6 @@ public class SceneSetup : MonoBehaviour
             swipe.thrower = thrower;
         }
 
-        Debug.Log("✅ Scene fully auto-setup completed!");
+        Debug.Log("✅ Full auto-setup with Ladder collider completed!");
     }
 }
